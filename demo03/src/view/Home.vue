@@ -8,10 +8,11 @@
 </template>
 
 <script setup lang="ts">
-  import NavBar from "../components/NavBar.vue";
+  import NavBar from "@/components/NavBar.vue";
   import {onBeforeMount, onMounted} from "vue";
   import {ref} from "vue";
-  import store from "../store";
+  import store from "@/store";
+
 
   const navBarList = store.state.navBarList;
   const defaultIndex = ref("#/");
@@ -35,8 +36,8 @@
     store.commit("addNavBar", {
       name: "hello2",
       title: "你好",
-      index: "#/hello",
-      path: "#/hello"
+      index: "/hello",
+      path: "/hello"
     });
   }
 </script>

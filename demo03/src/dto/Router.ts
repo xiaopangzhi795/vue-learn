@@ -43,7 +43,7 @@ export class Router {
         return this.children.filter(x => x.name === name);
     }
 
-    build() {
+    build(): {name:string,path:string,component:any,meta:any, children: any;} {
         let obj = {
             name: this.name,
             path: this.path,
@@ -51,19 +51,26 @@ export class Router {
             meta: {
                 title: this.meta.title,
             },
-            children: this.children.map(x => {
-                return {
-                    name: x.name,
-                    path: x.path,
-                    //todo 继续构建！！将这个数据构建完成
-                }
-            })
+            children: this. buildChildren(this.children),
         }
+        return obj;
+    }
+
+    private buildChildren(children: any) {
+        return children.map((x: any) => {
+            return {
+                name: x.name,
+                path: x.path,
+                component: x.component,
+                meta: x.meta,
+                children: this.buildChildren(x.children),
+            };
+        });
     }
 }
 
 //元数据
-class Meta{
+export class Meta{
     //标题
     title!:string;
 
